@@ -74,7 +74,7 @@ const ShoeCard = ({ slug, name, imageSrc, price, salePrice, releaseDate, numOfCo
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
-  flex: 1 1 250px;
+  flex: 1 1 275px;
 `;
 
 const Wrapper = styled.article`
