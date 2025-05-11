@@ -45,16 +45,17 @@ const Wrapper = styled.div`
 `;
 
 const LeftColumn = styled.div`
-  flex: 0 0 248px;
+  flex-basis: 248px;
 `;
 
 const MainColumn = styled.div`
-  flex: 4;
+  flex: 1;
 `;
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 `;
 
 const Title = styled.h2`
