@@ -4,24 +4,6 @@ import { COLORS, WEIGHTS } from "../../constants";
 import { formatPrice, pluralize, isNewShoe } from "../../utils";
 import Spacer from "../Spacer";
 
-const VARIANTS = {
-  "on-sale": {
-    bgColor: COLORS.primary,
-    display: "inline-block",
-    label: "Sale",
-  },
-  "new-release": {
-    bgColor: COLORS.secondary,
-    display: "inline-block",
-    label: "Just Released!",
-  },
-  default: {
-    bgColor: "transparent",
-    display: "none",
-    label: "",
-  },
-};
-
 const ShoeCard = ({ slug, name, imageSrc, price, salePrice, releaseDate, numOfColors }) => {
   // There are 3 variants possible, based on the props:
   //   - new-release
@@ -41,21 +23,13 @@ const ShoeCard = ({ slug, name, imageSrc, price, salePrice, releaseDate, numOfCo
       ? 'new-release'
       : 'default';
 
-  const variantStyles = VARIANTS[variant];
-  if (!variantStyles) {
-    throw new Error(`Unknown variant passed to ShoeCard: ${variant}`);
-  }
-
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
-        <VariantTag
-          style={{ backgroundColor: variantStyles.bgColor, display: variantStyles.display }}
-        >
-          {variantStyles.label}
-        </VariantTag>
         <ImageWrapper>
           <Image alt="Shoes" src={imageSrc} />
+          {variant === "on-sale" && <SaleFlag>Sale</SaleFlag>}
+          {variant === "new-release" && <NewFlag>Just Released!</NewFlag>}
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -80,19 +54,6 @@ const Link = styled.a`
 const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
-  position: relative;
-`;
-
-const VariantTag = styled.span`
-  padding: 6px 8px;
-  position: absolute;
-  top: 12px;
-  right: -4px;
-  z-index: 2;
-  color: white;
-  font-weight: ${WEIGHTS.bold};
-  font-size: 14px;
-  border-radius: 2px;
 `;
 
 const ImageWrapper = styled.div`
@@ -102,6 +63,26 @@ const ImageWrapper = styled.div`
 const Image = styled.img`
   width: 100%;
   border-radius: 16px 16px 4px 4px;
+`;
+
+const Flag = styled.span`
+  padding: 6px 8px;
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  z-index: 2;
+  color: white;
+  font-weight: ${WEIGHTS.bold};
+  font-size: ${14 / 16}rem;
+  border-radius: 4px;
+`;
+
+const SaleFlag = styled(Flag)`
+  background-color: ${COLORS.primary};
+`;
+
+const NewFlag = styled(Flag)`
+  background-color: ${COLORS.secondary};
 `;
 
 const Row = styled.div`
